@@ -8,32 +8,32 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
-  email         String     @unique
-  password      String
-  role          Role       @default(USER)
-  firstName     String?    @map("first_name")
-  lastName      String?    @map("last_name")
-  bonuses       Int        @default(0)
-  dateOfBirth   DateTime?  @map("date_of_birth")
-  contactEmail  String?    @map("contact_email")
-  contact_phone String?    @map("contact_phone")
-  createdAt     DateTime   @default(now()) @map("created_at")
-  updatedAt     DateTime   @updatedAt @map("updated_at")
+  id           String    @id @default(uuid())
+  email        String    @unique
+  password     String
+  firstName    String?   @map("first_name")
+  lastName     String?   @map("last_name")
+  bonuses      Int       @default(0)
+  dateOfBirth  DateTime? @map("date_of_birth")
+  contactEmail String?   @map("contact_email")
+  contactPhone String?   @map("contact_phone")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  role         Role      @default(USER)
 
   @@map("user")
 }
 
 model Category {
-  id                String           @id @default(uuid())
-  title             String
+  id                 String             @id @default(uuid())
+  title              String
   superSubcategories SuperSubcategory[]
 
   @@map("category")
 }
 
 model SuperCategory {
-  id                 String @id @default(uuid())
+  id                 String             @id @default(uuid())
   title              String
   superSubCategories SuperSubcategory[]
 
@@ -41,12 +41,12 @@ model SuperCategory {
 }
 
 model SuperSubcategory {
-  id              String          @id @default(uuid())
+  id              String         @id @default(uuid())
   title           String
-  superCategory   SuperCategory?   @relation(fields: [superCategoryId], references: [id])
-  category        Category?        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  superCategoryId String?          @map("super_category_id")
-  categoryId      String?          @map("category_id")
+  superCategoryId String?        @map("super_category_id")
+  categoryId      String?        @map("category_id")
+  category        Category?      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  superCategory   SuperCategory? @relation(fields: [superCategoryId], references: [id])
 
   @@map("super_subcategory")
 }

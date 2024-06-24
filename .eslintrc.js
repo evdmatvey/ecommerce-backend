@@ -28,7 +28,7 @@ module.exports = {
           accessors: 'explicit',
           constructors: 'off',
           methods: 'explicit',
-          properties: 'explicit',
+          properties: 'off',
           parameterProperties: 'explicit',
         },
       },
