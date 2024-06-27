@@ -43,7 +43,7 @@ module.exports = {
       'error',
       {
         selector: 'memberLike',
-        format: ['camelCase'],
+        format: ['camelCase', 'UPPER_CASE'],
         leadingUnderscore: 'forbid',
       },
       {
@@ -51,6 +51,11 @@ module.exports = {
         modifiers: ['private'],
         format: ['camelCase'],
         leadingUnderscore: 'require',
+      },
+      {
+        selector: 'property',
+        format: ['UPPER_CASE', 'camelCase'],
+        leadingUnderscore: 'forbid',
       },
     ],
   },
