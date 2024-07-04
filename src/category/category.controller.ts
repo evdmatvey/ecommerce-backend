@@ -35,12 +35,14 @@ import {
   CategoryMessageResponse,
   CategoryOkResponse,
   CategoryUpdateResponse,
-} from './types';
+} from './types/category.responses';
 
 @Controller('category')
 @ApiTags('category')
 export class CategoryController {
   constructor(private readonly _categoryService: CategoryService) {}
+
+  // TODO: Add success message at create endpoint to response
 
   @Post()
   @HttpCode(201)
@@ -72,6 +74,7 @@ export class CategoryController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: CategoryUpdateResponse })
   @ApiBadRequestResponse({ type: CategoryBadRequestResponse })
+  @ApiConflictResponse({ type: CategoryConflictResponse })
   public async update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
     const category = await this._categoryService.update(id, dto);
 

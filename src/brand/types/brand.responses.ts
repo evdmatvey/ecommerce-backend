@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Brand } from '@prisma/client';
 
-import { BrandErrors, ValidationErrors } from '@/constants';
+import { BrandErrors, BrandMessages, ValidationErrors } from '@/constants';
 
 export class BrandResponse {
   @ApiProperty({ example: '51846bf6-1f2a-4d65-85b2-c3e187c4d9ee' })
@@ -13,7 +13,7 @@ export class BrandResponse {
 }
 
 export class BrandMessageResponse {
-  @ApiProperty({ example: 'Категория успешно удалена!' })
+  @ApiProperty({ example: BrandMessages.BRAND_DELETE_SUCCESS })
   message: string;
 }
 
