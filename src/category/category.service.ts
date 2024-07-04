@@ -15,19 +15,6 @@ import { CreateCategoryDto, UpdateCategoryDto } from './dto';
 export class CategoryService {
   constructor(private readonly _client: PrismaService) {}
 
-  public async create(dto: CreateCategoryDto): Promise<Category> {
-    const existedCategory = await this._client.category.findFirst({
-      where: { title: dto.title },
-    });
-
-    if (existedCategory)
-      throw new ConflictException(CategoryErrors.CATEGORY_ALREADY_EXIST);
-
-    const category = await this._client.category.create({ data: dto });
-
-    return category;
-  }
-
   public async getById(id: string): Promise<Category> {
     const category = await this._client.category.findFirst({ where: { id } });
 
@@ -40,6 +27,25 @@ export class CategoryService {
     return categories;
   }
 
+  public async getByTitle(title: string): Promise<Category> {
+    const category = await this._client.category.findFirst({
+      where: { title },
+    });
+
+    return category;
+  }
+
+  public async create(dto: CreateCategoryDto): Promise<Category> {
+    const existedCategory = await this.getByTitle(dto.title);
+
+    if (existedCategory)
+      throw new ConflictException(CategoryErrors.CATEGORY_ALREADY_EXIST);
+
+    const category = await this._client.category.create({ data: dto });
+
+    return category;
+  }
+
   public async update(
     id: string,
     dto: UpdateCategoryDto,
@@ -50,6 +56,11 @@ export class CategoryService {
 
     if (!isCategoryExist)
       throw new BadRequestException(CategoryErrors.CATEGORY_NOT_FOUND);
+
+    const isTitleAlreadyUse = await this.getByTitle(dto.title);
+
+    if (isTitleAlreadyUse)
+      throw new ConflictException(CategoryErrors.CATEGORY_ALREADY_EXIST);
 
     const updatedCategory = await this._client.category.update({
       where: { id },
