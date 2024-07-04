@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Category } from '@prisma/client';
 
+import { CategoryErrors, ValidationErrors } from '@/constants';
+
 export class CategoryOkResponse {
   @ApiProperty({ example: '51846bf6-1f2a-4d65-85b2-c3e187c4d9ee' })
   id: string;
@@ -21,7 +23,7 @@ export class CategoryUpdateResponse extends CategoryMessageResponse {
 }
 
 export class CategoryBadRequestResponse {
-  @ApiProperty({ example: 'Категория не найдена!' })
+  @ApiProperty({ example: CategoryErrors.CATEGORY_NOT_FOUND })
   message: string;
 
   @ApiProperty({ example: 'Bad Request' })
@@ -32,7 +34,10 @@ export class CategoryBadRequestResponse {
 }
 
 export class CategoryCreateBadRequestResponse {
-  @ApiProperty({ example: 'Укажите название категории!', isArray: true })
+  @ApiProperty({
+    example: ValidationErrors.CATEGORY_EMPTY_TITLE,
+    isArray: true,
+  })
   message: string;
 
   @ApiProperty({ example: 'Bad Request' })
@@ -43,7 +48,7 @@ export class CategoryCreateBadRequestResponse {
 }
 
 export class CategoryConflictResponse {
-  @ApiProperty({ example: 'Такая категория уже есть в системе!' })
+  @ApiProperty({ example: CategoryErrors.CATEGORY_ALREADY_EXIST })
   message: string;
 
   @ApiProperty({ example: 'Conflict' })

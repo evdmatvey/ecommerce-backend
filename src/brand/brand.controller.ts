@@ -73,6 +73,7 @@ export class BrandController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: BrandUpdateResponse })
   @ApiNotFoundResponse({ type: BrandNotFoundResponse })
+  @ApiConflictResponse({ type: BrandConflictResponse })
   public async update(@Param('id') id: string, @Body() dto: UpdateBrandDto) {
     const category = await this._brandService.update(id, dto);
 
