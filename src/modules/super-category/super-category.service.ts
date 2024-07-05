@@ -6,8 +6,8 @@ import {
 
 import { SuperCategoryErrors, SuperCategoryMessages } from '@/constants';
 import { PrismaService } from '@/services';
-import { SuperSubcategoryService } from '@/super-subcategory/super-subcategory.service';
 
+import { SuperSubcategoryService } from '../super-subcategory';
 import {
   AddSubcategoryDto,
   CreateSuperCategoryDto,

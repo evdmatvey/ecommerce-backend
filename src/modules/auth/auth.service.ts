@@ -12,8 +12,8 @@ import { Response } from 'express';
 
 import { AuthCookieConfig } from '@/config';
 import { AuthErrors } from '@/constants';
-import { UserService } from '@/user';
 
+import { UserService } from '../user';
 import { AuthDto } from './dto';
 import { Tokens } from './types';
 import { AuthResult } from './types';

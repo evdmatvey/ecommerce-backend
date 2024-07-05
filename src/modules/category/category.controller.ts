@@ -22,10 +22,9 @@ import {
 
 import { Role } from '@prisma/client';
 
-import { JwtAuthGuard } from '@/auth';
-import { RoleGuard } from '@/auth/guards/roles.guard';
 import { Roles } from '@/decorators';
 
+import { JwtAuthGuard, RoleGuard } from '../auth';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto, UpdateCategoryDto } from './dto';
 import {

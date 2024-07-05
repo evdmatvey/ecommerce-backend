@@ -2,13 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { SuperCategory, SuperSubcategory } from '@prisma/client';
 
-import { CategoryOkResponse } from '@/category';
 import {
   SuperCategoryErrors,
   SuperCategoryMessages,
   ValidationErrors,
 } from '@/constants';
-import { SuperSubcategoryWithCategoriesResponse } from '@/super-subcategory/types/super-subcategory.responses';
+import { CategoryOkResponse } from '@/modules/category';
+import { SuperSubcategoryWithCategoriesResponse } from '@/modules/super-subcategory/types/super-subcategory.responses';
 
 export class SuperCategoryResponse {
   @ApiProperty({ example: '2d23c22c-863d-4774-bb8d-11ffb62c667f' })

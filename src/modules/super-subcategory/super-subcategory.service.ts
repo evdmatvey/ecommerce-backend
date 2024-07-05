@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { CategoryService } from '@/category/category.service';
 import {
   CategoryErrors,
   SuperSubcategoryErrors,
@@ -12,6 +11,7 @@ import {
 } from '@/constants';
 import { PrismaService } from '@/services';
 
+import { CategoryService } from '../category';
 import {
   AddCategoryDto,
   CreateSuperSubcategoryDto,

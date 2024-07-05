@@ -23,9 +23,9 @@ import {
 
 import { Role } from '@prisma/client';
 
-import { JwtAuthGuard, RoleGuard } from '@/auth';
 import { Roles } from '@/decorators';
 
+import { JwtAuthGuard, RoleGuard } from '../auth';
 import './dto';
 import {
   AddSubcategoryDto,

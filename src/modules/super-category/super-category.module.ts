@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
 import { PrismaService } from '@/services';
-import { SuperSubcategoryModule } from '@/super-subcategory/super-subcategory.module';
 
+import { SuperSubcategoryModule } from '../super-subcategory';
 import { SuperCategoryController } from './super-category.controller';
 import { SuperCategoryService } from './super-category.service';
 
