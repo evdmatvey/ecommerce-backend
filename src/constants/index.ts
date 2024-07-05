@@ -6,3 +6,5 @@ export * from './brand-errors.constants';
 export * from './brand-messages.constants';
 export * from './super-subcategory-errors.constants';
 export * from './super-subcategory-messages.constants';
+export * from './super-category-errors.constants';
+export * from './super-category-messages.constants';

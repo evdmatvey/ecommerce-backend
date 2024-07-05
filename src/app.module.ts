@@ -6,6 +6,7 @@ import { UserModule } from '@/user';
 
 import { BrandModule } from './brand/brand.module';
 import { CategoryModule } from './category/category.module';
+import { SuperCategoryModule } from './super-category/super-category.module';
 import { SuperSubcategoryModule } from './super-subcategory/super-subcategory.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { SuperSubcategoryModule } from './super-subcategory/super-subcategory.mo
     CategoryModule,
     BrandModule,
     SuperSubcategoryModule,
+    SuperCategoryModule,
   ],
 })
 export class AppModule {}
