@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { AuthMessages } from '@/constants';
+
 export class AuthUserResponse {
   @ApiProperty({ example: '51846bf6-1f2a-4d65-85b2-c3e187c4d9ee' })
   id: string;
@@ -43,7 +45,22 @@ export class AuthMeUnauthorizedResponse {
   statusCode: number;
 }
 
+export class AuthMessageResponse {
+  @ApiProperty({ example: AuthMessages.AUTH_LOGIN_SUCCESS })
+  message: string;
+}
+
 export class AuthOkResponse {
+  @ApiProperty({ type: AuthUserResponse })
+  user: AuthUserResponse;
+
+  @ApiProperty({
+    example: 'eyJhbGciOi.DEwfQ.9ExBwz6oXx_IYvSJOyVbET7Rs8wiDwVfssBEtuvIJWI',
+  })
+  accessToken: string;
+}
+
+export class AuthWithMessageResponse extends AuthMessageResponse {
   @ApiProperty({ type: AuthUserResponse })
   user: AuthUserResponse;
 

@@ -6,17 +6,14 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { User } from '@prisma/client';
 import { hash, verify } from 'argon2';
 import { Response } from 'express';
 
 import { AuthCookieConfig } from '@/config';
-import { AuthErrors } from '@/constants';
+import { AuthErrors, AuthMessages } from '@/constants';
 
 import { UserService } from '../user';
 import { AuthDto } from './dto';
-import { Tokens } from './types';
-import { AuthResult } from './types';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +28,7 @@ export class AuthService {
     private readonly _userService: UserService,
   ) {}
 
-  public async register(dto: AuthDto): Promise<AuthResult> {
+  public async register(dto: AuthDto) {
     const oldUser = await this._userService.getUserByEmail(dto.email);
 
     if (oldUser) throw new ConflictException(AuthErrors.USER_ALREADY_EXIST);
@@ -45,18 +42,18 @@ export class AuthService {
 
     const tokens = this._issueTokens(user.id);
 
-    return { user, ...tokens };
+    return { user, ...tokens, message: AuthMessages.AUTH_REGISTER_SUCCESS };
   }
 
-  public async login(dto: AuthDto): Promise<AuthResult> {
+  public async login(dto: AuthDto) {
     const { password, ...user } = await this._validateUser(dto);
 
     const tokens = this._issueTokens(user.id);
 
-    return { user, ...tokens };
+    return { user, ...tokens, message: AuthMessages.AUTH_LOGIN_SUCCESS };
   }
 
-  public async getNewTokens(refreshToken: string): Promise<AuthResult> {
+  public async getNewTokens(refreshToken: string) {
     const result = await this._jwt.verifyAsync(refreshToken);
 
     if (!result) throw new UnauthorizedException(AuthErrors.NO_ACCESS);
@@ -70,7 +67,7 @@ export class AuthService {
     return { user, ...tokens };
   }
 
-  public addRefreshTokenToResponse(res: Response, refreshToken: string): void {
+  public addRefreshTokenToResponse(res: Response, refreshToken: string) {
     const expiresIn = new Date();
     expiresIn.setDate(expiresIn.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN);
 
@@ -80,14 +77,14 @@ export class AuthService {
     });
   }
 
-  public removeRefreshTokenFromResponse(res: Response): void {
+  public removeRefreshTokenFromResponse(res: Response) {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       ...AuthCookieConfig,
       expires: new Date(0),
     });
   }
 
-  private _issueTokens(userId: string): Tokens {
+  private _issueTokens(userId: string) {
     const data = { id: userId };
 
     const accessToken = this._jwt.sign(data, {
@@ -101,7 +98,7 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  private async _validateUser(dto: AuthDto): Promise<User> {
+  private async _validateUser(dto: AuthDto) {
     const user = await this._userService.getUserByEmail(dto.email);
 
     if (!user) throw new NotFoundException(AuthErrors.USER_NOT_FOUND);

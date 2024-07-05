@@ -21,7 +21,7 @@ import {
 
 import { Request, Response } from 'express';
 
-import { AuthErrors } from '@/constants';
+import { AuthErrors, AuthMessages } from '@/constants';
 
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
@@ -29,8 +29,10 @@ import {
   AuthBadRequestResponse,
   AuthLoginNotFoundResponse,
   AuthMeUnauthorizedResponse,
+  AuthMessageResponse,
   AuthOkResponse,
   AuthRegisterConflictResponse,
+  AuthWithMessageResponse,
 } from './types';
 
 @Controller('auth')
@@ -41,7 +43,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post('/login')
-  @ApiOkResponse({ type: AuthOkResponse })
+  @ApiOkResponse({ type: AuthWithMessageResponse })
   @ApiBadRequestResponse({ type: AuthBadRequestResponse })
   @ApiNotFoundResponse({ type: AuthLoginNotFoundResponse })
   public async login(
@@ -58,7 +60,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
   @Post('/register')
-  @ApiCreatedResponse({ type: AuthOkResponse })
+  @ApiCreatedResponse({ type: AuthWithMessageResponse })
   @ApiBadRequestResponse({ type: AuthBadRequestResponse })
   @ApiConflictResponse({ type: AuthRegisterConflictResponse })
   public async register(
@@ -74,10 +76,11 @@ export class AuthController {
 
   @HttpCode(200)
   @Post('/logout')
+  @ApiOkResponse({ type: AuthMessageResponse })
   public logout(@Res({ passthrough: true }) res: Response) {
     this._authService.removeRefreshTokenFromResponse(res);
 
-    return true;
+    return { message: AuthMessages.AUTH_LOGOUT_SUCCESS };
   }
 
   @HttpCode(200)

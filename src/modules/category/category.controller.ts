@@ -28,12 +28,12 @@ import { JwtAuthGuard, RoleGuard } from '../auth';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto, UpdateCategoryDto } from './dto';
 import {
-  CategoryBadRequestResponse,
   CategoryConflictResponse,
   CategoryCreateBadRequestResponse,
   CategoryMessageResponse,
+  CategoryNotFoundResponse,
   CategoryOkResponse,
-  CategoryUpdateResponse,
+  CategoryWithMessageResponse,
 } from './types/category.responses';
 
 @Controller('category')
@@ -41,15 +41,13 @@ import {
 export class CategoryController {
   constructor(private readonly _categoryService: CategoryService) {}
 
-  // TODO: Add success message at create endpoint to response
-
   @Post()
   @HttpCode(201)
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles([Role.ADMIN])
   @ApiBearerAuth()
-  @ApiCreatedResponse({ type: CategoryOkResponse })
+  @ApiCreatedResponse({ type: CategoryWithMessageResponse })
   @ApiBadRequestResponse({ type: CategoryCreateBadRequestResponse })
   @ApiConflictResponse({ type: CategoryConflictResponse })
   public async create(@Body() dto: CreateCategoryDto) {
@@ -71,8 +69,8 @@ export class CategoryController {
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles([Role.ADMIN])
   @ApiBearerAuth()
-  @ApiOkResponse({ type: CategoryUpdateResponse })
-  @ApiBadRequestResponse({ type: CategoryBadRequestResponse })
+  @ApiOkResponse({ type: CategoryWithMessageResponse })
+  @ApiBadRequestResponse({ type: CategoryNotFoundResponse })
   @ApiConflictResponse({ type: CategoryConflictResponse })
   public async update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
     const category = await this._categoryService.update(id, dto);
@@ -86,7 +84,7 @@ export class CategoryController {
   @Roles([Role.ADMIN])
   @ApiBearerAuth()
   @ApiOkResponse({ type: CategoryMessageResponse })
-  @ApiBadRequestResponse({ type: CategoryBadRequestResponse })
+  @ApiBadRequestResponse({ type: CategoryNotFoundResponse })
   public async delete(@Param('id') id: string) {
     const category = await this._categoryService.delete(id);
 

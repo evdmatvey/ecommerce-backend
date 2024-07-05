@@ -17,19 +17,19 @@ export class CategoryMessageResponse {
   message: string;
 }
 
-export class CategoryUpdateResponse extends CategoryMessageResponse {
+export class CategoryWithMessageResponse extends CategoryMessageResponse {
   @ApiProperty({ type: CategoryOkResponse })
   category: Category;
 }
 
-export class CategoryBadRequestResponse {
+export class CategoryNotFoundResponse {
   @ApiProperty({ example: CategoryErrors.CATEGORY_NOT_FOUND })
   message: string;
 
-  @ApiProperty({ example: 'Bad Request' })
+  @ApiProperty({ example: 'Not Found' })
   error: string;
 
-  @ApiProperty({ example: 400 })
+  @ApiProperty({ example: 404 })
   statusCode: number;
 }
 
