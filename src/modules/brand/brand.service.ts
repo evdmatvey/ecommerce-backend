@@ -74,6 +74,6 @@ export class BrandService {
 
     await this._client.brand.delete({ where: { id } });
 
-    return { message: BrandMessages.BRAND_UPDATE_SUCCESS };
+    return { message: BrandMessages.BRAND_DELETE_SUCCESS };
   }
 }
