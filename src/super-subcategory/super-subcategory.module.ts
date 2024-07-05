@@ -10,5 +10,6 @@ import { SuperSubcategoryService } from './super-subcategory.service';
   imports: [CategoryModule],
   controllers: [SuperSubcategoryController],
   providers: [SuperSubcategoryService, PrismaService],
+  exports: [SuperSubcategoryService],
 })
 export class SuperSubcategoryModule {}
