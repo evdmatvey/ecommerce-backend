@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  password     String
+  firstName    String?   @map("first_name")
+  lastName     String?   @map("last_name")
+  bonuses      Int       @default(0)
+  dateOfBirth  DateTime? @map("date_of_birth")
+  contactEmail String?   @map("contact_email")
+  contactPhone String?   @map("contact_phone")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  role         Role      @default(USER)
+
+  @@map("user")
+}
+
+model Category {
+  id                 String             @id @default(uuid())
+  title              String
+  categoriesOnSuperSubcategory CategoriesOnSuperSubcategory[]
+
+  @@map("category")
+}
+
+model Brand {
+  id                 String             @id @default(uuid())
+  title              String
+
+  @@map("brand")
+}
+
+model SuperCategory {
+  id                 String             @id @default(uuid())
+  title              String
+  superSubcategoriesOnSuperCategory SuperSubcategoriesOnSuperCategory[]
+
+  @@map("super_category")
+}
+
+model SuperSubcategory {
+  id              String         @id @default(uuid())
+  title           String
+  categoriesOnSuperSubcategory CategoriesOnSuperSubcategory[]
+  superSubcategoriesOnSuperCategory SuperSubcategoriesOnSuperCategory[]
+
+  @@map("super_subcategory")
+}
+
+
+model CategoriesOnSuperSubcategory {
+  id                 String         @id @default(uuid())
+  superSubcategoryId String?        @map("super_subcategory_id")
+  categoryId         String?        @map("category_id")
+  category           Category?      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  superSubcategory   SuperSubcategory? @relation(fields: [superSubcategoryId], references: [id])
+
+  @@map("categories_on_super_subcategory")
+}
+
+model SuperSubcategoriesOnSuperCategory {
+  id                 String            @id @default(uuid())
+  superSubcategoryId String?           @map("super_subcategory_id")
+  superCategoryId    String?           @map("super_category_id")
+  superSubcategory   SuperSubcategory? @relation(fields: [superSubcategoryId], references: [id], onDelete: Cascade)
+  supercategory      SuperCategory?    @relation(fields: [superCategoryId], references: [id])
+
+  @@map("super_subcategories_on_super_category")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
