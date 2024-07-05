@@ -4,3 +4,5 @@ export * from './category-errors.constants';
 export * from './category-messages.constants';
 export * from './brand-errors.constants';
 export * from './brand-messages.constants';
+export * from './super-subcategory-errors.constants';
+export * from './super-subcategory-messages.constants';
