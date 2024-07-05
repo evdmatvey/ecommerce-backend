@@ -30,16 +30,16 @@ export class SuperCategoryFullResponse extends SuperCategoryResponse {
 
 export class SuperCategoryMessageResponse {
   @ApiProperty({
-    type: SuperCategoryResponse,
+    example: SuperCategoryMessages.SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS,
   })
-  superCategory: SuperCategory;
+  message: string;
 }
 
 export class SuperCategoryWithMessageResponse extends SuperCategoryMessageResponse {
   @ApiProperty({
-    example: SuperCategoryMessages.SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS,
+    type: SuperCategoryResponse,
   })
-  message: string;
+  superCategory: SuperCategory;
 }
 
 export class SuperCategoryBadRequestResponse {

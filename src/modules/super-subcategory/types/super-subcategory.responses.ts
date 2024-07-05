@@ -24,16 +24,16 @@ export class SuperSubcategoryWithCategoriesResponse extends SuperSubcategoryResp
 
 export class SuperSubcategoryMessageResponse {
   @ApiProperty({
-    type: SuperSubcategoryResponse,
+    example: SuperSubcategoryMessages.SUPER_SUBCATEGORY_DELETE_SUCCESS,
   })
-  superSubcategory: SuperSubcategory;
+  message: string;
 }
 
 export class SuperSubcategoryWithMessageResponse extends SuperSubcategoryMessageResponse {
   @ApiProperty({
-    example: SuperSubcategoryMessages.SUPER_SUBCATEGORY_ADD_CATEGORY_SUCCESS,
+    type: SuperSubcategoryResponse,
   })
-  message: string;
+  superSubcategory: SuperSubcategory;
 }
 
 export class SuperSubcategoryBadRequestResponse {
