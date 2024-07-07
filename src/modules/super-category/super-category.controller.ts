@@ -140,7 +140,7 @@ export class SuperCategoryController {
     return message;
   }
 
-  @Delete('remove/:id')
+  @Post('remove/:id')
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtAuthGuard, RoleGuard)
