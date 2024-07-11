@@ -1,0 +1,21 @@
+{
+  "AUTH_LOGIN_SUCCESS": "You successfully logged in!",
+  "AUTH_REGISTER_SUCCESS": "You successfully signed up!",
+  "AUTH_LOGOUT_SUCCESS": "You successfully logged out!",
+  "BRAND_DELETE_SUCCESS": "The brand successfully deleted!",
+  "BRAND_UPDATE_SUCCESS": "The brand successfully updated!",
+  "BRAND_CREATE_SUCCESS": "The brand successfully created!",
+  "CATEGORY_DELETE_SUCCESS": "The category successfully deleted!",
+  "CATEGORY_UPDATE_SUCCESS": "The category successfully updated!",
+  "CATEGORY_CREATE_SUCCESS": "The category successfully created!",
+  "SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS": "The super subcategory successfully added to super category!",
+  "SUPER_CATEGORY_REMOVE_SUBCATEGORY_SUCCESS": "The super subcategory successfully removed from super category!",
+  "SUPER_CATEGORY_UPDATE_SUCCESS": "The super category successfully upgraded!",
+  "SUPER_CATEGORY_CREATE_SUCCESS": "The super category successfully created!",
+  "SUPER_CATEGORY_DELETE_SUCCESS": "The super category successfully deleted!",
+  "SUPER_SUBCATEGORY_ADD_CATEGORY_SUCCESS": "The category successfully added to super subcategory!",
+  "SUPER_SUBCATEGORY_REMOVE_CATEGORY_SUCCESS": "Category successfully removed from the super subcategory!",
+  "SUPER_SUBCATEGORY_UPDATE_SUCCESS": "The super subcategory successfully updated!",
+  "SUPER_SUBCATEGORY_CREATE_SUCCESS": "The super subcategory successfully created!",
+  "SUPER_SUBCATEGORY_DELETE_SUCCESS": "The super subcategory successfully deleted!"
+}

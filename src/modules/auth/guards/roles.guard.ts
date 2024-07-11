@@ -7,8 +7,8 @@ import {
 import { Reflector } from '@nestjs/core';
 
 import { Role, User } from '@prisma/client';
+import { I18nContext } from 'nestjs-i18n';
 
-import { AuthErrors } from '@/constants';
 import { ROLES_KEY } from '@/decorators';
 
 @Injectable()
@@ -20,13 +20,15 @@ export class RoleGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+    const i18n = I18nContext.current();
 
     if (!requiredRoles) return true;
 
     const { user }: { user: User } = context.switchToHttp().getRequest();
     const hasRoles = requiredRoles.some((role) => user.role === role);
 
-    if (!user || !hasRoles) throw new ForbiddenException(AuthErrors.NO_ACCESS);
+    if (!user || !hasRoles)
+      throw new ForbiddenException(i18n.translate('errors.NO_ACCESS'));
 
     return true;
   }

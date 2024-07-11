@@ -1,0 +1,16 @@
+{
+  "USER_ALREADY_EXIST": "This user already exists in the system!",
+  "NO_ACCESS": "No access!",
+  "USER_NOT_FOUND": "User not found!",
+  "INCORRECT_PASSWORD": "Invalid login or password!",
+  "BRAND_ALREADY_EXIST": "This brand is already exist in the system!",
+  "BRAND_NOT_FOUND": "Brand not found!",
+  "CATEGORY_ALREADY_EXIST": "This category already exists in the system!",
+  "CATEGORY_NOT_FOUND": "Category not found!",
+  "SUPER_CATEGORY_ALREADY_EXIST": "This super category is already exist in the system!",
+  "SUPER_CATEGORY_NOT_FOUND": "Super category not found!",
+  "SUPER_CATEGORY_SUB_CATEGORY_NOT_FOUND": "Super subcategory not found in super category!",
+  "SUPER_SUBCATEGORY_ALREADY_EXIST": "This super subcategory is already exist in the system!",
+  "SUPER_SUBCATEGORY_NOT_FOUND": "Super subcategory not found!",
+  "SUPER_SUBCATEGORY_CATEGORY_NOT_FOUND": "Category not found in super subcategory!"
+}
