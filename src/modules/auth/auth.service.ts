@@ -10,7 +10,7 @@ import { hash, verify } from 'argon2';
 import { Response } from 'express';
 
 import { AuthCookieConfig } from '@/config';
-import { AuthErrors, AuthMessages } from '@/constants';
+import { IntlService } from '@/services';
 
 import { UserService } from '../user';
 import { AuthDto } from './dto';
@@ -25,13 +25,17 @@ export class AuthService {
 
   constructor(
     private readonly _jwt: JwtService,
+    private readonly _intl: IntlService,
     private readonly _userService: UserService,
   ) {}
 
   public async register(dto: AuthDto) {
     const oldUser = await this._userService.getUserByEmail(dto.email);
 
-    if (oldUser) throw new ConflictException(AuthErrors.USER_ALREADY_EXIST);
+    if (oldUser)
+      throw new ConflictException(
+        this._intl.translate('errors.USER_ALREADY_EXIST'),
+      );
 
     const hashedPassword = await hash(dto.password);
 
@@ -42,7 +46,11 @@ export class AuthService {
 
     const tokens = this._issueTokens(user.id);
 
-    return { user, ...tokens, message: AuthMessages.AUTH_REGISTER_SUCCESS };
+    return {
+      user,
+      ...tokens,
+      message: this._intl.translate('messages.AUTH_REGISTER_SUCCESS'),
+    };
   }
 
   public async login(dto: AuthDto) {
@@ -50,13 +58,18 @@ export class AuthService {
 
     const tokens = this._issueTokens(user.id);
 
-    return { user, ...tokens, message: AuthMessages.AUTH_LOGIN_SUCCESS };
+    return {
+      user,
+      ...tokens,
+      message: this._intl.translate('messages.AUTH_LOGIN_SUCCESS'),
+    };
   }
 
   public async getNewTokens(refreshToken: string) {
     const result = await this._jwt.verifyAsync(refreshToken);
 
-    if (!result) throw new UnauthorizedException(AuthErrors.NO_ACCESS);
+    if (!result)
+      throw new UnauthorizedException(this._intl.translate('errors.NO_ACCESS'));
 
     const { password, ...user } = await this._userService.getUserById(
       result.id,
@@ -101,12 +114,17 @@ export class AuthService {
   private async _validateUser(dto: AuthDto) {
     const user = await this._userService.getUserByEmail(dto.email);
 
-    if (!user) throw new NotFoundException(AuthErrors.USER_NOT_FOUND);
+    if (!user)
+      throw new NotFoundException(
+        this._intl.translate('errors.USER_NOT_FOUND'),
+      );
 
     const isValid = await verify(user.password, dto.password);
 
     if (!isValid)
-      throw new UnauthorizedException(AuthErrors.INCORRECT_PASSWORD);
+      throw new NotFoundException(
+        this._intl.translate('errors.USER_NOT_FOUND'),
+      );
 
     return user;
   }
