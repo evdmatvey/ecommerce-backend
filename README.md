@@ -6,7 +6,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Framework-nestjs-blue%3Fstyle%3Dflat" alt="Framework-nestjs"/>
-  <img src="https://img.shields.io/badge/Version-0.0.1_(Alpha)-purple?style=flat" alt="Version-0.0.1(Alpha)"/>
+  <img src="https://img.shields.io/badge/Version-0.1.2_(Alpha)-purple?style=flat" alt="Version-0.1.2(Alpha)"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License-MIT"/>
 </p>
 
@@ -22,6 +22,7 @@ The figma layout of the application was found in the public domain. [The figma l
 - Prisma (5.15.0)
 - PostgreSQL (16)
 - Jest (29.5.0)
+- Nestjs-i18n (10.4.5)
 
 ## Environment
 
@@ -66,7 +67,7 @@ Run code format checker.
 Get package.
 
 ```
-  npm run package
+  npm run build
 ```
 
 ## Developers

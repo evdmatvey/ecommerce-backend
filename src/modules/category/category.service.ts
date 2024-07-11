@@ -4,14 +4,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { CategoryErrors, CategoryMessages } from '@/constants';
-import { PrismaService } from '@/services';
+import { IntlService, PrismaService } from '@/services';
 
 import { CreateCategoryDto, UpdateCategoryDto } from './dto';
 
 @Injectable()
 export class CategoryService {
-  constructor(private readonly _client: PrismaService) {}
+  constructor(
+    private readonly _intl: IntlService,
+    private readonly _client: PrismaService,
+  ) {}
 
   public async getById(id: string) {
     const category = await this._client.category.findFirst({ where: { id } });
@@ -37,11 +39,16 @@ export class CategoryService {
     const existedCategory = await this.getByTitle(dto.title);
 
     if (existedCategory)
-      throw new ConflictException(CategoryErrors.CATEGORY_ALREADY_EXIST);
+      throw new ConflictException(
+        this._intl.translate('errors.CATEGORY_ALREADY_EXIST'),
+      );
 
     const category = await this._client.category.create({ data: dto });
 
-    return { category, message: CategoryMessages.CATEGORY_CREATE_SUCCESS };
+    return {
+      category,
+      message: this._intl.translate('messages.CATEGORY_CREATE_SUCCESS'),
+    };
   }
 
   public async update(id: string, dto: UpdateCategoryDto) {
@@ -50,12 +57,16 @@ export class CategoryService {
     });
 
     if (!isCategoryExist)
-      throw new NotFoundException(CategoryErrors.CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.CATEGORY_NOT_FOUND'),
+      );
 
     const isTitleAlreadyUse = await this.getByTitle(dto.title);
 
     if (isTitleAlreadyUse)
-      throw new ConflictException(CategoryErrors.CATEGORY_ALREADY_EXIST);
+      throw new ConflictException(
+        this._intl.translate('errors.CATEGORY_ALREADY_EXIST'),
+      );
 
     const updatedCategory = await this._client.category.update({
       where: { id },
@@ -64,7 +75,7 @@ export class CategoryService {
 
     return {
       category: updatedCategory,
-      message: CategoryMessages.CATEGORY_UPDATE_SUCCESS,
+      message: this._intl.translate('messages.CATEGORY_UPDATE_SUCCESS'),
     };
   }
 
@@ -74,10 +85,14 @@ export class CategoryService {
     });
 
     if (!isCategoryExist)
-      throw new NotFoundException(CategoryErrors.CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.CATEGORY_NOT_FOUND'),
+      );
 
     await this._client.category.delete({ where: { id } });
 
-    return { message: CategoryMessages.CATEGORY_DELETE_SUCCESS };
+    return {
+      message: this._intl.translate('messages.CATEGORY_DELETE_SUCCESS'),
+    };
   }
 }

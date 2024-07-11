@@ -4,8 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { SuperCategoryErrors, SuperCategoryMessages } from '@/constants';
-import { PrismaService } from '@/services';
+import { I18nService } from 'nestjs-i18n';
+
+import { I18nTranslations } from '@/generated/i18n.generated';
+import { IntlService, PrismaService } from '@/services';
 
 import { SuperSubcategoryService } from '../super-subcategory';
 import {
@@ -18,6 +20,7 @@ import {
 @Injectable()
 export class SuperCategoryService {
   constructor(
+    private readonly _intl: IntlService,
     private readonly _client: PrismaService,
     private readonly _superSubcategoryService: SuperSubcategoryService,
   ) {}
@@ -55,7 +58,7 @@ export class SuperCategoryService {
 
     if (existedSuperCategory)
       throw new ConflictException(
-        SuperCategoryErrors.SUPER_CATEGORY_ALREADY_EXIST,
+        this._intl.translate('errors.SUPER_CATEGORY_ALREADY_EXIST'),
       );
 
     const superCategory = await this._client.superCategory.create({
@@ -64,7 +67,7 @@ export class SuperCategoryService {
 
     return {
       superCategory,
-      message: SuperCategoryMessages.SUPER_CATEGORY_CREATE_SUCCESS,
+      message: this._intl.translate('messages.SUPER_CATEGORY_CREATE_SUCCESS'),
     };
   }
 
@@ -94,7 +97,9 @@ export class SuperCategoryService {
     const isSuperCategoryExist = await this.getById(id);
 
     if (!isSuperCategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     const superCategory = await this._client.superCategory.findFirst({
       where: { id },
@@ -139,21 +144,27 @@ export class SuperCategoryService {
     const isSuperCategoryExist = await this.getById(id);
 
     if (!isSuperCategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     const isSuperSubcategoryExist = await this._superSubcategoryService.getById(
       dto.id,
     );
 
     if (!isSuperSubcategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     await this._client.superSubcategoriesOnSuperCategory.create({
       data: { superCategoryId: id, superSubcategoryId: dto.id },
     });
 
     return {
-      message: SuperCategoryMessages.SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS,
+      message: this._intl.translate(
+        'messages.SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS',
+      ),
     };
   }
 
@@ -164,7 +175,9 @@ export class SuperCategoryService {
     const isSuperCategoryExist = await this.getById(id);
 
     if (!isSuperCategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     const isSubcategoryExist = await this.getSubcategoryInSuperCategoryById(
       id,
@@ -173,7 +186,7 @@ export class SuperCategoryService {
 
     if (!isSubcategoryExist)
       throw new NotFoundException(
-        SuperCategoryErrors.SUPER_CATEGORY_SUB_CATEGORY_NOT_FOUND,
+        this._intl.translate('errors.SUPER_CATEGORY_SUB_CATEGORY_NOT_FOUND'),
       );
 
     await this._client.superSubcategoriesOnSuperCategory.deleteMany({
@@ -181,7 +194,9 @@ export class SuperCategoryService {
     });
 
     return {
-      message: SuperCategoryMessages.SUPER_CATEGORY_REMOVE_SUBCATEGORY_SUCCESS,
+      message: this._intl.translate(
+        'messages.SUPER_CATEGORY_REMOVE_SUBCATEGORY_SUCCESS',
+      ),
     };
   }
 
@@ -189,13 +204,15 @@ export class SuperCategoryService {
     const isSuperCategoryExist = await this.getById(id);
 
     if (!isSuperCategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     const isSuperCategoryWithSameTitleExist = await this.getByTitle(dto.title);
 
     if (isSuperCategoryWithSameTitleExist)
       throw new ConflictException(
-        SuperCategoryErrors.SUPER_CATEGORY_ALREADY_EXIST,
+        this._intl.translate('errors.SUPER_CATEGORY_ALREADY_EXIST'),
       );
 
     const updatedSuperCategory = await this._client.superCategory.update({
@@ -204,7 +221,7 @@ export class SuperCategoryService {
     });
 
     return {
-      message: SuperCategoryMessages.SUPER_CATEGORY_UPDATE_SUCCESS,
+      message: this._intl.translate('messages.SUPER_CATEGORY_UPDATE_SUCCESS'),
       updatedSuperCategory,
     };
   }
@@ -213,12 +230,14 @@ export class SuperCategoryService {
     const isCategoryExist = await this.getById(id);
 
     if (!isCategoryExist)
-      throw new NotFoundException(SuperCategoryErrors.SUPER_CATEGORY_NOT_FOUND);
+      throw new NotFoundException(
+        this._intl.translate('errors.SUPER_CATEGORY_NOT_FOUND'),
+      );
 
     await this._client.superCategory.delete({ where: { id } });
 
     return {
-      message: SuperCategoryMessages.SUPER_CATEGORY_DELETE_SUCCESS,
+      message: this._intl.translate('messages.SUPER_CATEGORY_DELETE_SUCCESS'),
     };
   }
 }
