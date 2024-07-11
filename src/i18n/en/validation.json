@@ -1,0 +1,10 @@
+{
+  "AUTH_INCORRECT_EMAIL": "Enter correct email!",
+  "AUTH_INCORRECT_PASSWORD_LENGTH": "Minimum password length is 8 characters!",
+  "CATEGORY_EMPTY_TITLE": "Enter the title of the category!",
+  "CATEGORY_EMPTY_ID": "Enter the correct category id!",
+  "SUPER_SUBCATEGORY_EMPTY_TITLE": "Enter the title of the super subcategory!",
+  "SUPER_SUBCATEGORY_EMPTY_ID": "Enter the correct id of the super subcategory!",
+  "BRAND_EMPTY_TITLE": "Enter the title of the brand!",
+  "SUPER_CATEGORY_EMPTY_TITLE": "Enter the title of the super category!"
+}

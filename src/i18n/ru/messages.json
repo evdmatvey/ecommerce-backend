@@ -1,0 +1,21 @@
+{
+  "AUTH_LOGIN_SUCCESS": "Вы успешно вошли в систему!",
+  "AUTH_REGISTER_SUCCESS": "Вы успешно зарегистрировались!",
+  "AUTH_LOGOUT_SUCCESS": "Вы успешно вышли из системы!",
+  "BRAND_DELETE_SUCCESS": "Бренд успешно удалён!",
+  "BRAND_UPDATE_SUCCESS": "Бренд успешно обновлён!",
+  "BRAND_CREATE_SUCCESS": "Бренд успешно создан!",
+  "CATEGORY_DELETE_SUCCESS": "Категория успешно удалена!",
+  "CATEGORY_UPDATE_SUCCESS": "Категория успешно обнавлена!",
+  "CATEGORY_CREATE_SUCCESS": "Категория успешно создана!",
+  "SUPER_CATEGORY_ADD_SUBCATEGORY_SUCCESS": "Супер подкатегория успешно добавлена в супер категорию!",
+  "SUPER_CATEGORY_REMOVE_SUBCATEGORY_SUCCESS": "Супер подкатегория успешно удалена из супер категории!",
+  "SUPER_CATEGORY_UPDATE_SUCCESS": "Супер категория успешно обнавлена!",
+  "SUPER_CATEGORY_CREATE_SUCCESS": "Супер категория успешно создана!",
+  "SUPER_CATEGORY_DELETE_SUCCESS": "Супер категория успешно удалена!",
+  "SUPER_SUBCATEGORY_ADD_CATEGORY_SUCCESS": "Категория успешно добавлена в супер подкатегорию!",
+  "SUPER_SUBCATEGORY_REMOVE_CATEGORY_SUCCESS": "Категория успешно удалена из супер подкатегории!",
+  "SUPER_SUBCATEGORY_UPDATE_SUCCESS": "Супер подкатегория успешно обнавлена!",
+  "SUPER_SUBCATEGORY_CREATE_SUCCESS": "Супер подкатегория успешно создана!",
+  "SUPER_SUBCATEGORY_DELETE_SUCCESS": "Супер подкатегория успешно удалена!"
+}
